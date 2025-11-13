@@ -1,32 +1,61 @@
-.gradient-bg {
-    background: linear-gradient(120deg,#4f8cff 0%, #35bbff 60%, #b9e9fc 100%);
+body {
+    font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(120deg, #438cff 0%, #37bbff 60%, #e0f4ff 100%);
     min-height: 100vh;
 }
+.gradient-bg { background: none !important; }
 .bg-glass {
-    background: rgba(255,255,255,0.85) !important;
-    border-radius: 1.25rem;
-    box-shadow: 0 2px 24px 0 rgba(86,132,255,0.12);
-    backdrop-filter: blur(3px);
+    background: rgba(255,255,255,0.95)!important;
+    border-radius: 1.25em;
+    box-shadow: 0 2px 32px rgba(86,132,255,0.18);
+    backdrop-filter: blur(4px);
 }
-.job-card {
-    border: none;
-    border-radius: 1.25rem;
-    min-height: 120px;
-    transition: box-shadow .14s;
+.card {
+    border: none; 
+    border-radius: 1.1em;
+    min-height: 160px;
+    transition: box-shadow .2s, transform .1s;
 }
-.job-card:hover {
-    box-shadow: 0 1rem 1.5rem rgba(52,126,255,0.15), 0 2px 8px rgba(39,113,179,0.13);
+.card:hover {
+    box-shadow: 0 1rem 2rem rgba(51,132,255,.16), 0 2px 8px rgba(39,113,179,.10);
+    transform: translateY(-3px) scale(1.03);
+}
+.navbar {
+    border-radius: 0 0 1.25em 1.25em;
+    margin-bottom: 30px;
+    background: rgba(255,255,255,0.80)!important;
+}
+.code-circle {
+    width: 2em; height: 2em; border-radius: 100%;
+    background: linear-gradient(135deg,#51c3ff,#a4d7ff 80%);
+    display: flex; align-items: center; justify-content: center;
+    color: #0057d9; font-size: 1.25em; box-shadow:0 1px 8px 0 rgba(80,130,255,0.13);
 }
 input.form-control, textarea.form-control {
-    border-radius: 0.75rem;
+    border-radius: .7em;
+    font-size: 17px;
+    background: #f7fbff;
+}
+.btn-primary, .btn-success {
+    font-weight: 600;
+    box-shadow: 0 2px 12px rgba(112,195,253,0.1);
 }
 .btn-primary {
-    background: linear-gradient(90deg,#6096fd,#0ea7ff 90%);
-    border: none !important;
-    box-shadow: 0 2px 14px 0 rgba(17,97,238,0.12);
+    background: linear-gradient(90deg,#6096fd 20%,#0ea7ff 100%);
+    border: none;
 }
-.text-white-50 { color: rgba(255,255,255,0.7) !important; }
-::-webkit-input-placeholder { color: #b0b0b0; }
-::-moz-placeholder { color: #b0b0b0; }
-:-ms-input-placeholder { color: #b0b0b0; }
-::placeholder { color: #b0b0b0; }
+.btn-success {
+    background: linear-gradient(90deg,#55e178,#01c88f 90%);
+    border: none;
+}
+.text-gradient {
+    background: linear-gradient(90deg,#4896fd,#52e1ed 50%,#07bce7 100%);
+    background-clip: text;
+    color: transparent;
+    font-weight: 700;
+    letter-spacing: .5px;
+}
+@media (max-width: 768px) {
+    h1.display-4 { font-size:2rem;}
+    .navbar { border-radius: 0 0 1em 1em;}
+}
