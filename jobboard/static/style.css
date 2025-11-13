@@ -1,0 +1,32 @@
+.gradient-bg {
+    background: linear-gradient(120deg,#4f8cff 0%, #35bbff 60%, #b9e9fc 100%);
+    min-height: 100vh;
+}
+.bg-glass {
+    background: rgba(255,255,255,0.85) !important;
+    border-radius: 1.25rem;
+    box-shadow: 0 2px 24px 0 rgba(86,132,255,0.12);
+    backdrop-filter: blur(3px);
+}
+.job-card {
+    border: none;
+    border-radius: 1.25rem;
+    min-height: 120px;
+    transition: box-shadow .14s;
+}
+.job-card:hover {
+    box-shadow: 0 1rem 1.5rem rgba(52,126,255,0.15), 0 2px 8px rgba(39,113,179,0.13);
+}
+input.form-control, textarea.form-control {
+    border-radius: 0.75rem;
+}
+.btn-primary {
+    background: linear-gradient(90deg,#6096fd,#0ea7ff 90%);
+    border: none !important;
+    box-shadow: 0 2px 14px 0 rgba(17,97,238,0.12);
+}
+.text-white-50 { color: rgba(255,255,255,0.7) !important; }
+::-webkit-input-placeholder { color: #b0b0b0; }
+::-moz-placeholder { color: #b0b0b0; }
+:-ms-input-placeholder { color: #b0b0b0; }
+::placeholder { color: #b0b0b0; }

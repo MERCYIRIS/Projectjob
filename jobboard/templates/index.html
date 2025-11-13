@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Доска подработки</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS & Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="gradient-bg min-vh-100 pb-5">
+  <div class="container py-5">
+      <div class="row justify-content-center">
+          <div class="col-lg-8">
+
+              <div class="text-center mb-5">
+                  <i class="bi bi-briefcase-fill display-2 text-primary mb-3"></i>
+                  <h1 class="display-5 fw-bold text-white">Доска подработки</h1>
+                  <p class="lead text-white-50">Быстрый поиск работы и сотрудников. Удобно. Бесплатно.</p>
+              </div>
+
+              <div class="card shadow-lg mb-5 border-0 bg-glass animate__animated animate__fadeInDown">
+                  <div class="card-body">
+                    <form method="POST" autocomplete="off" class="row gy-2 gx-3 align-items-center justify-content-center">
+                        <div class="col-md-4">
+                            <input name="title" type="text" class="form-control form-control-lg" placeholder="Должность" required maxlength="60">
+                        </div>
+                        <div class="col-md-6">
+                            <input name="description" type="text" class="form-control form-control-lg" placeholder="Описание, требования..." required maxlength="140">
+                        </div>
+                        <div class="col-md-2 d-grid">
+                            <button type="submit" class="btn btn-lg btn-primary fw-bold">
+                                <i class="bi bi-plus-lg"></i> <span class="d-none d-xl-inline">Добавить</span>
+                            </button>
+                        </div>
+                    </form>
+                  </div>
+              </div>
+
+              <h3 class="mb-4 text-white">Свежие вакансии</h3>
+              <div class="row g-4">
+              {% if jobs %}
+                  {% for job in jobs %}
+                  <div class="col-md-6">
+                      <div class="card shadow-sm job-card animate__animated animate__zoomIn">
+                          <div class="card-body">
+                              <div class="d-flex align-items-center mb-2"><i class="bi bi-person-workspace fs-4 me-2 text-primary"></i>
+                                <h5 class="card-title mb-0">{{ job[1] }}</h5></div>
+                              <p class="card-text text-secondary small">{{ job[2] }}</p>
+                          </div>
+                      </div>
+                  </div>
+                  {% endfor %}
+              {% else %}
+                  <div class="col">
+                      <div class="alert alert-secondary text-center">Вакансий пока нет — добавьте свою!</div>
+                  </div>
+              {% endif %}
+              </div>
+
+          </div>
+      </div>
+  </div>
+</div>
+<!-- Bootstrap JS, Animate.css (for simple fade/zoom animation) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+</body>
+</html>
