@@ -1,21 +1,29 @@
 {% extends 'base.html' %}
-{% block title %}Новая вакансия — Доска подработки{% endblock %}
+{% block title %}Добавить вакансию — JobBoard{% endblock %}
 {% block content %}
 <div class="row justify-content-center">
-  <div class="col-md-6">
+  <div class="col-md-7 col-lg-6">
     <div class="card shadow-lg bg-glass animate__animated animate__fadeInDown">
       <div class="card-body p-4">
-        <h3 class="mb-4 fw-bold text-center text-gradient">Добавить вакансию</h3>
+        <h3 class="mb-3 text-center text-gradient">Новая вакансия</h3>
         <form method="post">
           <div class="mb-3">
-            <label class="form-label text-muted">Должность</label>
-            <input name="title" required maxlength="50" class="form-control shadow-sm py-2 px-3">
+            <label class="form-label">Должность</label>
+            <input name="title" required class="form-control">
           </div>
-          <div class="mb-4">
-            <label class="form-label text-muted">Описание</label>
-            <textarea name="description" required maxlength="140" class="form-control shadow-sm py-2 px-3" rows="3"></textarea>
+          <div class="mb-3">
+            <label class="form-label">Описание</label>
+            <textarea name="description" rows="4" required class="form-control"></textarea>
           </div>
-          <button class="btn btn-success w-100 fw-bold py-2"><i class="bi bi-send"></i> Опубликовать</button>
+          <div class="mb-3">
+            <label class="form-label">Теги (через запятую)</label>
+            <input name="tags" class="form-control">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Зарплата (текст)</label>
+            <input name="salary" class="form-control">
+          </div>
+          <button class="btn btn-success w-100">Опубликовать</button>
         </form>
       </div>
     </div>

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Сброс пароля — JobBoard{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-sm-10 col-md-8 col-lg-5">
+    <div class="card shadow-lg bg-glass p-4">
+      <h3 class="text-center mb-3 text-gradient">Восстановление пароля</h3>
+      <p class="text-center text-muted small mb-3">Введите ваш email — мы пришлём ссылку для сброса (в разработке ссылка выводится в консоль)</p>
+      <form method="post" action="{{ url_for('reset_password_request') }}">
+        {{ form.hidden_tag() }}
+        <div class="mb-3">
+          {{ form.email.label(class="form-label") }}
+          {{ form.email(class="form-control form-control-lg") }}
+        </div>
+        <button class="btn btn-primary btn-lg w-100 mb-2" type="submit">{{ form.submit.label.text }}</button>
+      </form>
+      <div class="text-center mt-3">
+        <a href="{{ url_for('login') }}">Вернуться на страницу входа</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

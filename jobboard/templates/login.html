@@ -1,23 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}Вход — JobBoard{% endblock %}
+{% block content %}
 <div class="row justify-content-center">
-  <div class="col-md-5">
-    <div class="card shadow-sm bg-glass">
-      <div class="card-body p-4">
-        <h2 class="mb-4 text-center">Вход</h2>
-        <form method="post">
-          <div class="mb-3">
-            <label>Логин</label>
-            <input name="username" required maxlength="32" class="form-control">
-          </div>
-          <div class="mb-4">
-            <label>Пароль</label>
-            <input name="password" type="password" required maxlength="32" class="form-control">
-          </div>
-          <button class="btn btn-primary w-100">Войти</button>
-        </form>
-        <div class="text-center mt-3">
-            <a href="{{ url_for('register') }}">Нет аккаунта?</a>
+  <div class="col-sm-10 col-md-8 col-lg-5">
+    <div class="card shadow-lg bg-glass p-4">
+      <h3 class="text-center mb-3 text-gradient">Вход в аккаунт</h3>
+      <p class="text-center text-muted small mb-3">Введите логин и пароль, чтобы продолжить</p>
+      <form method="post" action="{{ url_for('login') }}">
+        {{ form.hidden_tag() }}
+        <div class="mb-3">
+          {{ form.username.label(class="form-label") }}
+          {{ form.username(class="form-control form-control-lg") }}
+          {% for e in form.username.errors %}<div class="text-danger small">{{ e }}</div>{% endfor %}
         </div>
+        <div class="mb-3">
+          {{ form.password.label(class="form-label") }}
+          {{ form.password(class="form-control form-control-lg") }}
+          {% for e in form.password.errors %}<div class="text-danger small">{{ e }}</div>{% endfor %}
+        </div>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <div class="form-check">
+            {{ form.remember(class="form-check-input", id="rememberMe") }}
+            <label class="form-check-label" for="rememberMe">Запомнить меня</label>
+          </div>
+          <a class="small" href="{{ url_for('reset_password_request') }}">Забыли пароль?</a>
+        </div>
+        <button class="btn btn-primary btn-lg w-100 mb-2" type="submit">{{ form.submit.label.text }}</button>
+      </form>
+
+      <div class="text-center mt-3">
+        <span class="small text-muted">Нет аккаунта?</span>
+        <a href="{{ url_for('register') }}" class="small fw-bold ms-1">Зарегистрироваться</a>
       </div>
     </div>
   </div>
 </div>
+{% endblock %}

@@ -1,0 +1,10 @@
+<!-- Простой placeholder-аватар в SVG (поместите файл в static/avatar-default.svg) -->
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160">
+  <rect width="100%" height="100%" rx="20" fill="#eaf7ff"/>
+  <g transform="translate(30,30)" fill="#6aaef9">
+    <circle cx="50" cy="30" r="24" fill="#aee1ff"/>
+    <circle cx="50" cy="30" r="20" fill="#6aaef9"/>
+    <path fill="#aee1ff" d="M0 110c0-30 40-30 50-30s50 0 50 30z"/>
+    <path fill="#6aaef9" d="M0 110c0-20 40-20 50-20s50 0 50 20z"/>
+  </g>
+</svg>

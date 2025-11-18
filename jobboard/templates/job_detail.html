@@ -1,34 +1,58 @@
 {% extends 'base.html' %}
-{% block title %}{{ job['title'] }} — вакансия{% endblock %}
+{% block title %}{{ job['title'] }} — JobBoard{% endblock %}
 {% block content %}
-<div class="card shadow bg-glass p-4 mb-4">
-  <h2 class="text-gradient">{{ job['title'] }}</h2>
-  <p class="fs-5">{{ job['description'] }}</p>
-  <span class="badge bg-primary">{{ job['tags'] }}</span>
-  {% if job['salary'] %}<span class="badge bg-success ms-2">Зарплата: {{ job['salary'] }} ₽</span>{% endif %}
-  <div class="small text-muted">Добавил: <a href="{{ url_for('profile', username=job['author']) }}">{{ job['author'] }}</a></div>
+<div class="card shadow-sm bg-glass mb-4">
+  <div class="card-body">
+    <div class="d-flex align-items-start">
+      <div class="me-3">
+        <img src="{{ job['author_avatar'] or url_for('static', filename='avatar-default.svg') }}" alt="avatar" width="72" class="rounded-circle">
+      </div>
+      <div>
+        <h2 class="text-gradient">{{ job['title'] }}</h2>
+        <div class="text-muted mb-2">Работодатель: <a href="{{ url_for('profile', username=job['author']) }}">{{ job['author'] or 'Аноним' }}</a></div>
+        <p class="fs-6">{{ job['description'] }}</p>
+        {% if job['tags'] %}<div class="mb-2"><span class="badge bg-primary">{{ job['tags'] }}</span></div>{% endif %}
+        {% if job['salary'] %}<div class="mb-2"><span class="badge bg-success">Зарплата: {{ job['salary'] }}</span></div>{% endif %}
+      </div>
+    </div>
+  </div>
 </div>
-{% if session.get('user_id') %}
-<div class="card mb-3">
+
+{% if user %}
+<div class="card mb-4 bg-glass">
   <div class="card-body">
     <form method="post" action="{{ url_for('respond', job_id=job['id']) }}">
-      <h5>Откликнуться:</h5>
-      <textarea name="text" required class="form-control mb-2" rows="2" placeholder="Ваш комментарий"></textarea>
-      <input type="email" name="contact" class="form-control mb-2" placeholder="Ваш email">
+      <h5 class="mb-3">Откликнуться</h5>
+      <textarea name="text" class="form-control mb-2" rows="3" placeholder="Коротко о себе и почему вы подходите" required></textarea>
+      <input name="contact" class="form-control mb-3" placeholder="Email или телефон (опционально)">
       <button class="btn btn-success">Отправить отклик</button>
     </form>
   </div>
 </div>
+{% else %}
+  <div class="alert alert-info">Войдите, чтобы откликнуться на вакансию.</div>
 {% endif %}
+
 {% if responses %}
-  <h5>Отклики на вакансию</h5>
+  <h5 class="mb-3">Отклики</h5>
   <ul class="list-group">
-  {% for resp in responses %}
-    <li class="list-group-item py-2">
-      <strong>{{ resp['user'] }}</strong> — {{ resp['text'] }}<br>
-      <small class="text-muted">{{ resp['created'] }} {% if session.get('is_employer') and session.get('user_id')==job['author_id'] %}| <a href="{{ url_for('del_response', id=resp['id']) }}" class="text-danger">Удалить</a>{% endif %}</small>
-    </li>
-  {% endfor %}
+    {% for r in responses %}
+      <li class="list-group-item d-flex justify-content-between align-items-start">
+        <div>
+          <strong>{{ r['user_name'] or 'Аноним' }}</strong>
+          <div class="small text-muted">{{ r['created'] }}</div>
+          <div class="mt-1">{{ r['text'] }}</div>
+          {% if r['contact'] %}<div class="small text-muted">Контакт: {{ r['contact'] }}</div>{% endif %}
+        </div>
+        <div class="ms-3">
+          {% if user and (user['id']==r['user_id'] or user['id']==job['author_id']) %}
+            <form method="post" action="{{ url_for('del_response', resp_id=r['id']) }}" onsubmit="return confirm('Удалить отклик?')">
+              <button class="btn btn-sm btn-outline-danger">Удалить</button>
+            </form>
+          {% endif %}
+        </div>
+      </li>
+    {% endfor %}
   </ul>
 {% endif %}
 {% endblock %}
