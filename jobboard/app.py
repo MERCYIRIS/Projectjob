@@ -98,6 +98,25 @@ def init_db():
             job2_id = c.lastrowid
             c.execute("INSERT INTO responses (job_id, user_id, text, contact) VALUES (?, ?, ?, ?)",
                       (job1_id, worker_id, 'Есть опыт, могу по вечерам.', 'worker@example.com'))
+            # Дополнительные демо-вакансии для более полного наполнения БД
+            c.execute("INSERT INTO jobs (author_id, title, description, tags, salary) VALUES (?, ?, ?, ?, ?)",
+                      (employer_id, 'Front-end разработчик (junior)',
+                       'Ищем начинающего front-end разработчика. Знание HTML/CSS/JS; React/Vue приветствуются.',
+                       'frontend,react,javascript', '50 000–80 000 ₽'))
+            job3_id = c.lastrowid
+            c.execute("INSERT INTO jobs (author_id, title, description, tags, salary) VALUES (?, ?, ?, ?, ?)",
+                      (employer_id, 'Python-разработчик (удалённо)',
+                       'Разработка бэкенда на Flask/Django. Опыт 1-3 года. Тестирование и CI — плюс.',
+                       'python,backend,flask', 'от 70 000 ₽'))
+            job4_id = c.lastrowid
+            c.execute("INSERT INTO jobs (author_id, title, description, tags, salary) VALUES (?, ?, ?, ?, ?)",
+                      (employer_id, 'Контент-менеджер',
+                       'Наполнение сайта, работа с текстом и изображениями, базовая верстка.',
+                       'контент,редактор,маркетинг', '30 000–45 000 ₽'))
+            job5_id = c.lastrowid
+            # Пример отклика на одну из новых вакансий
+            c.execute("INSERT INTO responses (job_id, user_id, text, contact) VALUES (?, ?, ?, ?)",
+                      (job3_id, worker_id, 'Есть базовые знания React, готов обучаться и работать неполный день.', 'worker@example.com'))
             conn.commit()
         except Exception:
             conn.rollback()

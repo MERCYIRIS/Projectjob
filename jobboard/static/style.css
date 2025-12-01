@@ -1,15 +1,32 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap');
+
+/* Design tokens / CSS variables */
+:root{
+    --bg-gradient-1: #438cff;
+    --bg-gradient-2: #37bbff;
+    --bg-gradient-3: #e0f4ff;
+    --text-default: #1f2937;
+    --glass-bg: rgba(255,255,255,0.96);
+    --card-radius: 1.1rem;
+    --card-shadow: 0 2px 28px rgba(86,132,255,0.14);
+    --primary-1: #4896fd;
+    --primary-2: #52e1ed;
+    --accent: #07bce7;
+    --success-1: #55e178;
+    --success-2: #01c88f;
+}
+
 body {
-    font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
-    background: linear-gradient(120deg,#438cff 0%, #37bbff 60%, #e0f4ff 100%);
-    min-height: 100vh;
-    color: #1f2937;
+        font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+        background: linear-gradient(120deg,var(--bg-gradient-1) 0%, var(--bg-gradient-2) 60%, var(--bg-gradient-3) 100%);
+        min-height: 100vh;
+        color: var(--text-default);
 }
 .gradient-bg { background: none !important; }
 .bg-glass {
-    background: rgba(255,255,255,0.96)!important;
-    border-radius: 1.1rem;
-    box-shadow: 0 2px 28px rgba(86,132,255,0.14);
+    background: var(--glass-bg) !important;
+    border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow);
     backdrop-filter: blur(4px);
 }
 .navbar { border-radius: 0 0 1.1rem 1.1rem; margin-bottom: 1.5rem;}
@@ -18,19 +35,44 @@ body {
 .code-circle {
     width: 2.2rem; height: 2.2rem; border-radius: 50%;
     display:flex;align-items:center;justify-content:center;
-    background: linear-gradient(135deg,#51c3ff,#a4d7ff);
+    background: linear-gradient(135deg,var(--primary-2),#a4d7ff);
     color:#0044b3;font-size:1.1rem;
 }
 .text-gradient {
-    background: linear-gradient(90deg,#4896fd,#52e1ed 60%,#07bce7 100%);
+    background: linear-gradient(90deg,var(--primary-1),var(--primary-2) 60%,var(--accent) 100%);
     -webkit-background-clip: text; background-clip: text;
     color: transparent; font-weight: 700;
 }
 input.form-control, textarea.form-control { border-radius: .6rem; }
-.btn-primary { background: linear-gradient(90deg,#6096fd,#0ea7ff); border: none; }
-.btn-success { background: linear-gradient(90deg,#55e178,#01c88f); border: none; }
+.btn-primary { background: linear-gradient(90deg,var(--primary-1),var(--primary-2)); border: none; }
+.btn-success { background: linear-gradient(90deg,var(--success-1),var(--success-2)); border: none; }
 .list-group-item { background: rgba(250,255,255,0.95); border: none; }
 .alert { opacity: 0.98; }
+.badge-job {
+    background: linear-gradient(90deg,#eef6ff,#dff7ff);
+    color: #0b3a66;
+    border-radius: 999px;
+    padding: .35rem .6rem;
+    font-weight: 600;
+    box-shadow: 0 1px 6px rgba(5,45,90,0.04);
+    margin-right: .35rem;
+}
+.salary-pill {
+    display:inline-block;
+    background: linear-gradient(90deg,#fff8e6,#fff3d1);
+    color:#7a4b00;
+    padding:.35rem .55rem;
+    border-radius: .6rem;
+    font-weight:700;
+    box-shadow: 0 4px 10px rgba(250,180,20,0.06);
+}
+.card { transition: transform .22s ease, box-shadow .22s ease; }
+.badge-job { transition: transform .18s ease, box-shadow .18s ease, opacity .18s ease; cursor:default; }
+.badge-job:hover { transform: translateY(-6px); box-shadow: 0 8px 20px rgba(11,58,102,0.12); }
+.code-circle { transition: transform .18s ease, box-shadow .18s ease; }
+.card:hover .code-circle { transform: scale(1.06); }
+img.avatar-img { width:72px; height:72px; object-fit:cover; transition: transform .18s ease, box-shadow .18s ease; box-shadow: 0 6px 18px rgba(7,62,120,0.06); }
+img.avatar-img:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(7,62,120,0.12); }
 .card .form-control-lg { border-radius: 0.6rem; padding: .7rem 1rem; }
 .divider { position: relative; }
 .divider::before {
@@ -48,3 +90,37 @@ input.form-control, textarea.form-control { border-radius: .6rem; }
 @media (max-width: 768px) {
     .display-5 { font-size: 1.7rem; }
 }
+
+/* Dark theme overrides — toggled by adding class `dark-theme` on <body> */
+body.dark-theme {
+    background: linear-gradient(120deg,#0f1724 0%, #0b1220 60%, #071022 100%);
+    color: #dbeafe;
+}
+body.dark-theme .bg-glass {
+    background: rgba(12,18,28,0.78) !important;
+    box-shadow: 0 8px 30px rgba(2,6,23,0.6);
+}
+body.dark-theme .navbar { background: rgba(8,12,20,0.6); }
+body.dark-theme .text-gradient {
+    background: linear-gradient(90deg,#9be3ff,#7ad4ff 60%,#53b8ff 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+body.dark-theme .card-text, body.dark-theme .text-muted, body.dark-theme .small { color: #c6d5e8; }
+body.dark-theme .list-group-item { background: rgba(8,12,20,0.6); color:#dbeafe; }
+body.dark-theme .badge-job { background: linear-gradient(90deg,#0b2a44,#0f3b5f); color:#dff6ff; box-shadow: 0 6px 18px rgba(0,0,0,0.6); }
+body.dark-theme .salary-pill { background: linear-gradient(90deg,#2b2b2b,#1b2630); color:#ffdca3; box-shadow: 0 8px 24px rgba(0,0,0,0.6); }
+body.dark-theme .btn-outline-primary { color: #cbe8ff; border-color: rgba(124,170,255,0.16); }
+body.dark-theme .btn-outline-primary:hover { background: rgba(124,170,255,0.06); }
+body.dark-theme .alert { opacity: 0.96; }
+
+/* Theme toggle button small tweaks */
+.theme-toggle-btn { border: none; background: transparent; color: inherit; }
+.theme-toggle-btn .bi { font-size: 1.05rem; vertical-align: middle; }
+
+/* Prominent toggle styling + animation */
+.theme-toggle-btn { padding: .25rem .6rem; border-radius: .6rem; background: rgba(255,255,255,0.04); }
+.theme-toggle-btn:hover { background: rgba(255,255,255,0.06); }
+#theme-toggle-icon { transition: transform .35s ease; display:inline-block; }
+.theme-toggle-rotate { transform: rotate(28deg) scale(1.08); }
+.theme-toggle-btn .small { font-weight:600; margin-left: .1rem; }
+body.dark-theme .theme-toggle-btn { background: rgba(255,255,255,0.03); }

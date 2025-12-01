@@ -18,6 +18,12 @@
         </button>
         <div class="collapse navbar-collapse" id="navMenu">
             <ul class="navbar-nav ms-auto align-items-center">
+                <li class="nav-item me-2 d-flex align-items-center">
+                    <button id="theme-toggle" class="btn theme-toggle-btn d-flex align-items-center" title="Переключить тему" aria-label="Toggle theme">
+                        <i id="theme-toggle-icon" class="bi bi-moon-fill me-2"></i>
+                        <span id="theme-toggle-label" class="small">Тема: Светлая</span>
+                    </button>
+                </li>
                 {% if user %}
                     <li class="nav-item me-2"><a class="nav-link" href="{{ url_for('profile', username=user['username']) }}"><i class="bi bi-person-circle"></i> {{ user['username'] }}</a></li>
                     {% if user['is_employer'] %}
@@ -48,5 +54,45 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+// Theme toggle: persist in localStorage and update body class
+(function(){
+    const key = 'site-theme';
+    const btn = document.getElementById('theme-toggle');
+    const icon = document.getElementById('theme-toggle-icon');
+    function setTheme(t){
+        if(t==='dark'){
+            document.body.classList.add('dark-theme');
+            icon.className = 'bi bi-sun-fill';
+            if(label) label.textContent = 'Тема: Тёмная';
+        } else {
+            document.body.classList.remove('dark-theme');
+            icon.className = 'bi bi-moon-fill';
+            if(label) label.textContent = 'Тема: Светлая';
+        }
+        try{ localStorage.setItem(key, t); }catch(e){}
+        // brief icon animation
+        if(icon){
+            icon.classList.add('theme-toggle-rotate');
+            setTimeout(()=> icon.classList.remove('theme-toggle-rotate'), 380);
+        }
+    }
+    // initialize
+    try{
+        const saved = localStorage.getItem(key);
+        if(saved) setTheme(saved);
+        else {
+            // respect OS preference
+            const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            setTheme(prefersDark ? 'dark' : 'light');
+        }
+    }catch(e){ setTheme('light'); }
+    const label = document.getElementById('theme-toggle-label');
+    if(btn){ btn.addEventListener('click', function(){
+        const dark = document.body.classList.contains('dark-theme');
+        setTheme(dark ? 'light' : 'dark');
+    }); }
+})();
+</script>
 </body>
 </html>

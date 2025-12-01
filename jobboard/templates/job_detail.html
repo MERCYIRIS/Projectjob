@@ -5,14 +5,20 @@
   <div class="card-body">
     <div class="d-flex align-items-start">
       <div class="me-3">
-        <img src="{{ job['author_avatar'] or url_for('static', filename='avatar-default.svg') }}" alt="avatar" width="72" class="rounded-circle">
+        <img src="{{ job['author_avatar'] or url_for('static', filename='avatar-default.svg') }}" alt="avatar" width="72" class="rounded-circle avatar-img">
       </div>
       <div>
         <h2 class="text-gradient">{{ job['title'] }}</h2>
         <div class="text-muted mb-2">Работодатель: <a href="{{ url_for('profile', username=job['author']) }}">{{ job['author'] or 'Аноним' }}</a></div>
         <p class="fs-6">{{ job['description'] }}</p>
-        {% if job['tags'] %}<div class="mb-2"><span class="badge bg-primary">{{ job['tags'] }}</span></div>{% endif %}
-        {% if job['salary'] %}<div class="mb-2"><span class="badge bg-success">Зарплата: {{ job['salary'] }}</span></div>{% endif %}
+        {% if job['tags'] %}
+          <div class="mb-2">
+            {% for t in job['tags'].split(',') %}
+              <span class="badge-job">{{ t.strip() }}</span>
+            {% endfor %}
+          </div>
+        {% endif %}
+        {% if job['salary'] %}<div class="mb-2"><span class="salary-pill">Зарплата: {{ job['salary'] }}</span></div>{% endif %}
       </div>
     </div>
   </div>
